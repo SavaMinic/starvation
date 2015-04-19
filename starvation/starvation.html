@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Unity Web Player | Starvation</title>
+		<title>Starvation | Ludum Dare 32</title>
 		<script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
 		<script type="text/javascript">
 		<!--
@@ -15,7 +15,7 @@
 		<script type="text/javascript">
 		<!--
 			var config = {
-				width: 960, 
+				width: 800, 
 				height: 600,
 				params: { enableDebugging:"0" }
 				
@@ -85,7 +85,7 @@
 		}
 		div.content {
 			margin: auto;
-			width: 960px;
+			width: 1024px;
 		}
 		div.broken,
 		div.missing {
@@ -109,15 +109,16 @@
 		}
 		div#unityPlayer {
 			cursor: default;
+			margin: 0 auto;
+			width: 800px;
 			height: 600px;
-			width: 960px;
 		}
 		-->
 		</style>
 	</head>
 	<body>
-		<p class="header"><span>Unity Web Player | </span>Starvation</p>
-		<div class="content">
+		<h1 class="header"><span>Starvation</span> | An Unconventional Weapon | Ludum Dare 32</h1>
+		<div class="content" style="margin: 0 auto;">
 			<div id="unityPlayer">
 				<div class="missing">
 					<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
@@ -130,6 +131,23 @@
 					</a>
 				</div>
 			</div>
+		</div>
+		<div>
+			Game of modified "Rock, Paper, Scissors".<br />
+			Each round you choose one of the options "Crops", "Bugs" or "Rain".<br />
+			<b>Goal is to get to 7 crops, before the opponent.</b><br /><br />
+			<table style="width:400px; margin: 0 auto; display: block;" border=1>
+				<tr><th colspan="5">There are different results, depending on chosen options</th></tr>
+				<tr><th>Player A</th><th>Player B</th><th>Result</th><th>Result A</th><th>Result A</th></tr>
+				<tr><td>Crops</td><td>Crops</td><td>Friends</td><td>+1 crop</td><td>+1 crop</td></tr>
+				<tr><td>Crops</td><td>Bugs</td><td>Attack</td><td>-2 crops</td><td>/</td></tr>
+				<tr><td>Crops</td><td>Rain</td><td>Growing</td><td>+2 crops</td><td>+1 crop</td></tr>
+				<tr><td>Bugs</td><td>Rain</td><td>Extermination</td><td>-1 bug</td><td>/</td></tr>
+				<tr><td>Bugs</td><td>Bugs</td><td>Overpopulation</td><td>-1 bug</td><td>-1 bug</td></tr>
+				<tr><td>Rain</td><td>Rain</td><td>Flood</td><td>-2 crops</td><td>-2 crops</td></tr>
+			</table>
+			<br />
+			Each 5th round, you regenerate one bug, up to maximum of 3.
 		</div>
 		<p class="footer">&laquo; created with <a href="http://unity3d.com/unity/" title="Go to unity3d.com">Unity</a> &raquo;</p>
 	</body>
