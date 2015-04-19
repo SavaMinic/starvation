@@ -14,18 +14,27 @@ public class Player
 	private Text foodLabel;
 	private Text bugsLabel;
 	private Image moveImage;
+
+	public Image foodStatusImage;
+	public Text foodStatus;
+	public Image bugsStatusImage;
+	public Text bugsStatus;
 	#endregion
 
 	private GameManager gameManager;
 
-	public Player(Text nameLabel, Text foodLabel, Text bugsLabel, Image moveImage)
+	public Player(Text nameLabel, Text foodLabel, Text bugsLabel, Image moveImage, Image foodStatusImage, Text foodStatus, Image bugsStatusImage, Text bugsStatus)
 	{
+		gameManager = GameObject.FindObjectOfType<GameManager>();
 		this.nameLabel = nameLabel;
 		this.foodLabel = foodLabel;
 		this.bugsLabel = bugsLabel;
 		this.moveImage = moveImage;
+		this.foodStatusImage = foodStatusImage;
+		this.foodStatus = foodStatus;
+		this.bugsStatusImage = bugsStatusImage;
+		this.bugsStatus = bugsStatus;
 		CurrentMove = GameManager.Move.None;
-		gameManager = GameObject.FindObjectOfType<GameManager>();
 	}
 
 	public int Food
@@ -64,18 +73,39 @@ public class Player
 		set
 		{
 			// if this is first selected move, start timer
-			if (currentMove == GameManager.Move.None && value != GameManager.Move.None)
+			if (this == gameManager.firstPlayer && currentMove == GameManager.Move.None && value != GameManager.Move.None)
 			{
-				gameManager.StartTimer();
+				gameManager.StartTimer(2f);
 			}
 			currentMove = value;
-
 			// refresh the image
 			if (currentMove != GameManager.Move.None)
 			{
-				moveImage.sprite = gameManager.sprites[(int) currentMove];
+				// for first player, and for oponnent if selecting is done
+				if (this == gameManager.firstPlayer)
+				{
+					moveImage.sprite = gameManager.sprites[(int)currentMove];
+				}
+				else
+				{
+					// show the question mark
+					moveImage.sprite = gameManager.sprites[gameManager.sprites.Count - 1];
+				}
 			}
 			moveImage.enabled = currentMove != GameManager.Move.None;
 		}
+	}
+
+	public GameManager.Move GetNextMoveEasy()
+	{
+		Array values = Enum.GetValues(typeof(GameManager.Move));
+		// last is None, and check if we can use bugs sprite
+		int len = bugs > 0 ? values.Length - 1 : values.Length - 2;
+		return (GameManager.Move)values.GetValue(GameManager.rand.Next(len));
+	}
+
+	public void RefreshMoveImage()
+	{
+		moveImage.sprite = gameManager.sprites[(int)currentMove];
 	}
 }
